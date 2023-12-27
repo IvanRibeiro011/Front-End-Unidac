@@ -1,11 +1,12 @@
 type PageDescriptionProps = {
   title: string;
   description: string;
+  buttonDisabled?: boolean;
   buttonName: string;
-  onPerformButtonClick: () => void;
+  onPerformButtonClick?: () => void;
 }
 
-export default function PageDescription({ description, title, buttonName, onPerformButtonClick }: PageDescriptionProps) {
+export default function PageDescription({ description, title, buttonName, onPerformButtonClick, buttonDisabled = false }: PageDescriptionProps) {
   return (
     <div className="flex justify-between items-center mt-4">
         <div>
@@ -13,7 +14,7 @@ export default function PageDescription({ description, title, buttonName, onPerf
           <span className="text-sm text-gray-400">{description}</span>
         </div>
 
-        <button className="bg-green-500 p-2 rounded-lg text-white font-bold" onClick={onPerformButtonClick}>{buttonName}</button>
+        <button disabled={buttonDisabled} className="bg-green-500 p-2 rounded-lg text-white font-bold disabled:bg-gray-500" onClick={onPerformButtonClick}>{buttonName}</button>
       </div>
   )
 }

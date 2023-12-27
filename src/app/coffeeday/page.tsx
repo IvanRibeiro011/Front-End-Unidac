@@ -1,11 +1,11 @@
 "use client"
-import { Modal, PageDescription } from "@/components";
+import { Modal, PageDescription, Tbody } from "@/components";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Coffee, useCoffees } from  "./data/useCofee";
 import { Collaborator, useCollaborators } from "../colaboradores/data/useCollaborators";
 
 export default function CoffeePage() {
-  const { loadCoffees, Coffees, deleteCoffee, createCoffee,updateCoffee, formatInputDate, parseInputDate } = useCoffees()
+  const { loadCoffees, Coffees, deleteCoffee, createCoffee,updateCoffee } = useCoffees()
   const { loadCollaborators, collaborators } = useCollaborators()
 
   const [selectedCoffee, setSelectedCoffee] = useState<Coffee | null>(null)
@@ -96,7 +96,7 @@ export default function CoffeePage() {
       <PageDescription  
         title='Café da manhã' 
         description='coffee day 20/11/2021' 
-        buttonName="Criar Café"
+        buttonName="Criar Café da manhã"
         onPerformButtonClick={() => setIsModalOpen(true)} 
       />
       <table className='w-full mt-4'>
@@ -104,28 +104,28 @@ export default function CoffeePage() {
           <th>café da manhã</th>
           <th></th>
         </thead>
-        <tbody className='text-left'>
-         {Coffees.map(breakfast => (
-            <tr key={breakfast.id}>
-              <td>{formatInputDate(breakfast.date)}</td>
-              <td className='flex gap-4'>
-                <button 
-                  className='bg-purple-700 p-2 rounded-full text-white font-bold'
-                  onClick={() => {
-                    setSelectedCoffee(breakfast) 
-                    setIsModalOpen(true)
-                  }}>
-                    editar
-                </button>
-                <button 
-                className='bg-red-500 p-2 rounded-full text-white font-bold'
-                onClick={() => handleDeleteCoffee(breakfast.id)}>
-                  deletar
-                </button>
-            </td>
-            </tr>
-          ))}
-        </tbody>
+        <Tbody items={Coffees}>
+          {Coffees.map(breakfast => (
+              <tr key={breakfast.id}>
+                <td>{breakfast.date}</td>
+                <td className='flex gap-4'>
+                  <button 
+                    className='bg-purple-700 p-2 rounded-full text-white font-bold'
+                    onClick={() => {
+                      setSelectedCoffee(breakfast) 
+                      setIsModalOpen(true)
+                    }}>
+                      editar
+                  </button>
+                  <button 
+                  className='bg-red-500 p-2 rounded-full text-white font-bold'
+                  onClick={() => handleDeleteCoffee(breakfast.id)}>
+                    deletar
+                  </button>
+              </td>
+              </tr>
+            ))}
+        </Tbody>
       </table>
       
       {!selectedCoffee && (
@@ -171,10 +171,10 @@ export default function CoffeePage() {
             <fieldset className='flex flex-col gap-2'>
               <label>Data</label>
               <input 
-                type="date" name='data' value={formatInputDate(selectedCoffee.date)} onChange={(e) => {
+                type="date" name='data' value={selectedCoffee.date} onChange={(e) => {
                   setSelectedCoffee({
                     ...selectedCoffee,
-                    date: parseInputDate(e.target.value) as Array<number>,
+                    date: e.target.value,
                   })
                 }} placeholder='data do café da manhã' className='border rounded-lg p-2'/>
             </fieldset>

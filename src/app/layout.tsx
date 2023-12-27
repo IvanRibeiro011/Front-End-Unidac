@@ -28,13 +28,10 @@ export default function RootLayout({
       <nav>
         <ul className='flex gap-4'>
           <li className='text-gray-700 font-medium'>
-            <Link href="/">Home</Link>
+            <Link href="/">Colaboradores</Link>
           </li>
           <li className='text-gray-700 font-medium'>
-            <Link href="/colaboradores">Colaboradores</Link>
-          </li>
-          <li className='text-gray-700 font-medium'>
-            <Link href="/coffeeday">Coffee Day</Link>
+            <Link href="/coffeeday">Café da manhã</Link>
           </li>
           <li className='text-gray-700 font-medium'>
             <Link href="/Itens">Itens</Link>
